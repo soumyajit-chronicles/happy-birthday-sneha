@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Surprise</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('birthday-index-picture.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+      opacity: 0;
+      animation: fadeIn 2s forwards ease-in;
+      overflow: hidden;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    h1, h2, p, a, button {
+      text-shadow: 1px 1px 5px #000;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 30px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    button, .next-button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 16px;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 0 12px rgba(255,255,255,0.5);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    button:hover, .next-button:hover {
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(1.05);
+    }
+
+    /* Sakura Petals */
+    .petal {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-image: url('sakura-petal.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: fall linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2 id="joke">"21? Damn. That’s a lot of years tolerating you. 😵‍💫"</h2>
+  <button onclick="changeJoke()">Next joke 👉</button>
+
+  <h1>🔥 *ALERT!* Today Is A National Holiday. (Because Of You.) 🎉</h1>
+  <p>
+    The government might not have announced it, but don’t worry—  
+    I’m taking over. 😏  
+    Today is all about <strong>YOU</strong> (and me… mostly me).  
+    Buckle up, 21-year-old, because I have plans.
+  </p>
+  <a href="cake.html" class="next-button">🍰 Time for Cake. No Sharing. 😉</a>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="hope.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- JavaScript -->
+  <script>
+    // 🎶 Music after first click (browser-safe)
+    const music = document.getElementById('bgMusic');
+    document.addEventListener('click', function startMusic() {
+      music.play().catch(e => console.log("Music blocked:", e));
+      document.removeEventListener('click', startMusic);
+    });
+
+    // 😂 Jokes rotation
+    const jokes = [
+      '"21? Damn. That’s a lot of years tolerating you. 😵‍💫"',
+      '"You don’t look a day over fabulous. 🤷"',
+      '"Let’s be honest… we’re both aging like fine wine. 😩"',
+      '"At 21, you’re legal in every way… time to misbehave responsibly. 🥱"',
+      '"Officially 21, but mentally sweet 16 forever. 🙂‍↕"',
+      '"Birthdays are nature’s way of telling us to eat more cake. 🫠"'
+    ];
+    let jokeIndex = 0;
+    function changeJoke() {
+      jokeIndex = (jokeIndex + 1) % jokes.length;
+      document.getElementById('joke').textContent = jokes[jokeIndex];
+    }
+
+    // 🌸 Sakura Petals animation
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.animationDuration = (5 + Math.random() * 5) + 's';
+      document.body.appendChild(petal);
+      setTimeout(() => petal.remove(), 10000);
+    }
+    setInterval(createPetal, 300);
+  </script>
+
+</body>
+</html>
